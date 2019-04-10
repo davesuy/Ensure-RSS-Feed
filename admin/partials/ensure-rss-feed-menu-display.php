@@ -1,5 +1,4 @@
 
-
 <?php settings_errors(); ?>
 
 <form method="post" action="options.php">

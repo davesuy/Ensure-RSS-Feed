@@ -178,7 +178,8 @@ class Ensure_Rss_Feed {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'ers_cron_hook', $plugin_public, 'ensureRSS' );
+		//ers_cron_hook
+		$this->loader->add_action( 'init', $plugin_public, 'ensureRSS' );
 	}
 
 	/**

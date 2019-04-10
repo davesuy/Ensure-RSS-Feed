@@ -119,7 +119,8 @@ class Ensure_Rss_Feed_Public {
 
 			if(function_exists('fetch_feed')) {
 
-				include_once(ABSPATH . WPINC . '/feed.php'); 	
+				include_once(ABSPATH . WPINC . '/feed.php');
+				include_once(ABSPATH . WPINC . '/class-simplepie.php'); 	
 
 				$feed_url = get_option('ers_feed_url');	
 				$ers_author = get_option('ers_author');
@@ -127,18 +128,42 @@ class Ensure_Rss_Feed_Public {
 				// Includes the necessary files
 				//$feed = fetch_feed($feed_url); 	// URL to the feed you want to show
 
-				$rss = fetch_feed($feed_url); 	// URL to the feed you want to show
+				//echo '<pre>'.print_r($feed_url , true).'</pre>';
+
+				//$urls = array('https://www.rzim.org/just-thinking/feed/','https://www.feedforall.com/blog-feed.xml');
+
+				$urls = $feed_url;
 
 
+					 
+				$feed = new SimplePie();
+				$feed->set_feed_url($urls);
+				$ers_set_cache_location = ABSPATH . WPINC . '/SimplePie/Cache/cache';
+
+				if (!file_exists($ers_set_cache_location)) {
+				   mkdir($ers_set_cache_location, 0777, true);
+				}
+
+				$feed->set_cache_location($ers_set_cache_location);
+				$feed->set_timeout(30);
+				$feed->init();
+				$feed->handle_content_type();
+				//echo $feed->get_title();
+
+
+
+				//$rss = fetch_feed($urls); 	// URL to the feed you want to show
+
+		
 				$maxitems = 0;
 
-				if ( ! is_wp_error( $rss ) ) : // Checks that the object is created correctly
+				if ( ! is_wp_error( $feed ) ) : // Checks that the object is created correctly
 
 				    // Figure out how many total items there are, but limit it to 5. 
-				    $maxitems = $rss->get_item_quantity( 20 ); 
+				    $maxitems = $feed->get_item_quantity( 100 ); 
 
 				    // Build an array of all the items, starting with element 0 (first element).
-				    $rss_items = $rss->get_items( 0, $maxitems );
+				    $rss_items = $feed->get_items( 0, $maxitems );
 
 				endif;
 

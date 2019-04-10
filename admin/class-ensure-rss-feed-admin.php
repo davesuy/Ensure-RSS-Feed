@@ -98,7 +98,17 @@ class Ensure_Rss_Feed_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ensure-rss-feed-admin.js', array( 'jquery' ), $this->version, false );
+
+		$screen = get_current_screen();
+
+		if ( $screen->id == "toplevel_page_ensure-rss-feed" ) {
+	
+			wp_enqueue_script( 'jquery.form-repeater', plugin_dir_url( __FILE__ ) . 'js/jquery.form-repeater.js', array( 'jquery' ), $this->version, false );
+		
+
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ensure-rss-feed-admin.js', array( 'jquery' ), $this->version, false );
+
+		}
 
 	}
 
@@ -133,9 +143,42 @@ class Ensure_Rss_Feed_Admin {
 
 	public function ers_feed_url() {
 
-		$feed_url = esc_attr(get_option('ers_feed_url'));
+		$feed_url = get_option('ers_feed_url');
 
-		echo '<input type="text" name="ers_feed_url" value="'.$feed_url.'" class="regular-text" />';
+		$feed_url = array_filter($feed_url);  
+		$feed_url_count = count($feed_url) - 1;
+
+		//echo '<pre>'.print_r($feed_url, true).'</pre>';
+		?>
+
+		<div id="feedUrlCon">
+			<button type="button" class="r-btnAdd button button-primary ">Add +</button>
+			<?php
+			for ($x = 0; $x <= $feed_url_count; $x++) {
+
+				echo '<p><input type="text" name="ers_feed_url[]" value="'.$feed_url[$x].'" class="regular-text" /></p>';
+
+			}
+			?>
+			
+	      	
+
+	      		<div class="r-group">
+	      			<p>
+					<?php
+
+						echo '<input type="text" name="ers_feed_url[]" value="" class="regular-text" />';
+
+					?> <button type="button" class="r-btnRemove button button-secondary">Remove -</button>
+					</p>
+				
+
+				
+				 </div>
+			</div>
+
+		<?php
+
 	}
 
 	public function ers_author() {
@@ -143,6 +186,7 @@ class Ensure_Rss_Feed_Admin {
 		$ers_author = esc_attr(get_option('ers_author'));
 
 		echo '<input type="number" name="ers_author" value="'.$ers_author.'"  />';
+	
 	}
 
 	public function ers_cpt() {

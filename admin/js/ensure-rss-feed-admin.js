@@ -1,4 +1,4 @@
-(function( $ ) {
+jQuery( document ).ready(function($) {
 	'use strict';
 
 	/**
@@ -29,4 +29,20 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-})( jQuery );
+	  jQuery('#feedUrlCon').repeater({
+		      btnAddClass: 'r-btnAdd',
+		      btnRemoveClass: 'r-btnRemove',
+		      groupClass: 'r-group',
+		      minItems: 0,
+		      maxItems: 0,
+		      startingIndex: 0,
+		      showMinItemsOnLoad: true,
+		      reindexOnDelete: true,
+		      repeatMode: 'append',
+		      animation: 'fade',
+		      animationSpeed: 400,
+		      animationEasing: 'swing',
+		      clearValues: true
+  	});
+
+});
