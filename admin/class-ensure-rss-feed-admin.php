@@ -156,7 +156,7 @@ class Ensure_Rss_Feed_Admin {
 			<?php
 			for ($x = 0; $x <= $feed_url_count; $x++) {
 
-				echo '<p><input type="text" name="ers_feed_url[]" value="'.$feed_url[$x].'" class="regular-text" /></p>';
+				echo '<p><input type="text" name="ers_feed_url[]" value="'.$feed_url[$x].'" class="regular-text loop-feed-input" /> <button type="button" class="r-btnRemove button button-secondary loop-feed-input-remove" style="display: inline-block;">Remove -</button></p>';
 
 			}
 			?>

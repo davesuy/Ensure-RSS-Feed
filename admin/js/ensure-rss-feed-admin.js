@@ -45,4 +45,14 @@ jQuery( document ).ready(function($) {
 		      clearValues: true
   	});
 
+
+ 
+
+	  $(".loop-feed-input-remove").click(function(){
+
+	  		$(this).hide();
+	  		$(this).siblings(".loop-feed-input").hide();
+	  		$(this).siblings(".loop-feed-input").attr("value", "");
+	  });
+
 });

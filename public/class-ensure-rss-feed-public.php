@@ -175,7 +175,7 @@ class Ensure_Rss_Feed_Public {
 
 			if ( $maxitems == 0) {
 
-				echo '<div>The feed is either empty or unavailable.</div>';
+				//echo '<div>The feed is either empty or unavailable.</div>';
 
 			} else {
 
